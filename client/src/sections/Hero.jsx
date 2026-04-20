@@ -135,9 +135,16 @@ export default function Hero({ isDark }) {
                   <Icon size={15} />
                 </a>
               ))}
-              <span className={`text-xs ${isDark ? 'text-dark-muted' : 'text-light-muted'}`}>
-                {email}
-              </span>
+              <a
+                href={`mailto:${email}`}
+                aria-label="Email"
+                id="hero-email-icon-link"
+                className={`w-9 h-9 flex items-center justify-center rounded-lg border transition-all duration-200 hover:border-accent hover:text-accent hover:-translate-y-1 ${
+                  isDark ? 'border-dark-border text-dark-muted' : 'border-light-border text-light-muted'
+                }`}
+              >
+                <Mail size={15} />
+              </a>
             </motion.div>
           </div>
 
@@ -192,20 +199,6 @@ export default function Hero({ isDark }) {
                     </motion.div>
                   ))}
                 </pre>
-              </div>
-            </motion.div>
-
-            {/* Decorative floating badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.3 }}
-              className="glass rounded-xl px-4 py-3 mt-4 ml-8 flex items-center gap-3 w-fit"
-            >
-              <span className="text-xl">🚀</span>
-              <div>
-                <p className="text-xs font-semibold text-accent">3 Projects Shipped</p>
-                <p className={`text-xs ${isDark ? 'text-dark-muted' : 'text-light-muted'}`}>2 internships completed</p>
               </div>
             </motion.div>
           </motion.div>

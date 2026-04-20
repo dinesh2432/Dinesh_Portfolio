@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
+import { ArrowUp } from 'lucide-react';
 import { useTheme } from './hooks/useTheme';
 import Navbar from './components/Navbar';
 import ScrollProgress from './components/ScrollProgress';
@@ -14,6 +16,19 @@ import { GithubIcon } from './components/SocialIcons';
 
 export default function App() {
   const { isDark, toggle } = useTheme();
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className={`relative min-h-screen noise-bg ${isDark ? '' : 'light'}`}>
@@ -66,6 +81,17 @@ export default function App() {
           </a>
         </div>
       </footer>
+
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          id="scroll-to-top"
+          aria-label="Scroll to top"
+          className="fixed bottom-8 right-8 z-[100] p-3 rounded-full bg-accent text-white shadow-lg transition-all duration-300 hover:bg-accent-dark hover:-translate-y-1 hover:shadow-accent/50"
+        >
+          <ArrowUp size={20} />
+        </button>
+      )}
 
       <Toaster
         position="bottom-right"

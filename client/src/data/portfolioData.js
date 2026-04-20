@@ -99,7 +99,7 @@ export const portfolioData = {
   projects: [
     {
       id: 1,
-      title: 'AI Powered Tourism Website',
+      title: 'AI Tourism Website',
       date: 'Dec 2025',
       problem: 'Planning a trip means juggling 10+ browser tabs and still missing great local spots.',
       description:
@@ -157,7 +157,7 @@ export const portfolioData = {
     },
     { 
       title: 'Code or Die', 
-      issuer: 'Velammal Symposium', 
+      issuer: 'Velammal Institute of Technology', 
       date: 'September 2024',
       description: "Competed and excelled in the highly competitive 'Code or Die' intense coding event at Velammal Symposium. Tackled high-pressure algorithmic assessments and system architecture design requirements.",
       color: '#e60000', 
@@ -165,7 +165,7 @@ export const portfolioData = {
     },
     { 
       title: 'The Hawkins quiz', 
-      issuer: 'Velammal Symposium', 
+      issuer: 'Velammal Institute of Technology', 
       date: 'September 2024',
       description: "Tested general and deep technical knowledge in 'The Hawkins Quiz' event at Velammal Symposium. Showcased rapid recall of computer science fundamentals, network protocols, and modern web frameworks.",
       color: '#7c6aff', 
@@ -180,8 +180,8 @@ export const portfolioData = {
       image: codefreeAiSjitImg 
     },
     { 
-      title: 'Leetcode 50days badge', 
-      issuer: 'Coding Platform', 
+      title: 'Leetcode 50 days badge', 
+      issuer: 'LeetCode', 
       date: 'February 2025',
       description: 'Maintained a rigorous 50-day consecutive coding streak badge, consistently solving medium and hard-level algorithmic problems accurately, ensuring continuous skill progression.',
       color: '#34d399', 
@@ -200,7 +200,7 @@ export const portfolioData = {
     { title: 'HTML5', issuer: 'Infosys Springboard', date: 'August 2024', description: 'Mastered semantic HTML5 web design concepts, establishing a robust foundation in modern accessibility standards, DOM structuring, and responsive metadata implementations.', color: '#ff6b6b', image: html5Img },
     { title: 'CSS3', issuer: 'Infosys Springboard', date: 'August 2024', description: 'Certified in advanced CSS3 styling architectures, encompassing modern Flexbox/Grid layouts, fluid typography, and complex keyframe animations for high-performance web experiences.', color: '#7c6aff', image: cssImg },
     { title: 'JavaScript', issuer: 'Infosys Springboard', date: 'September 2024', description: 'Deeply mastered foundational and ES6+ JavaScript concepts, including asynchronous programming, closures, DOM manipulation, and dynamic event handling architectures.', color: '#f7df1e', image: javascriptImg },
-    { title: 'React JS', issuer: 'HackerRank / Other', date: 'October 2024', description: 'Successfully completed immersive training focusing on modern React workflows, React Hooks, complex state management architectures, and building scalable component libraries.', color: '#61dafb', image: reactjsImg },
+    { title: 'React JS', issuer: 'Infosys Springboard', date: 'October 2024', description: 'Successfully completed immersive training focusing on modern React workflows, React Hooks, complex state management architectures, and building scalable component libraries.', color: '#61dafb', image: reactjsImg },
     { title: 'DBMS', issuer: 'NPTEL', date: 'December 2024', description: 'Conducted a deep dive into advanced Database Management Systems. Covered vital subjects including SQL query optimization, robust normalization, indexing, and scalable distributed databases.', color: '#4ecdc4', image: dbmsImg },
     { title: 'Oracle AI Foundation', issuer: 'Oracle', date: 'January 2025', description: 'Validated a solid foundational understanding of Artificial Intelligence technologies, deep machine learning principles, and generative AI models governed within the Oracle Cloud ecosystem.', color: '#a096ff', image: oracleAiImg },
     { title: 'Python for Data Science', issuer: 'NPTEL', date: 'February 2025', description: 'Gained comprehensive mastery over exploratory data analysis techniques, data visualization, and complex dataset manipulation heavily leveraging Python libraries like Pandas and NumPy.', color: '#3776ab', image: pythonDataScienceImg },

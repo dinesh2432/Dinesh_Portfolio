@@ -36,6 +36,12 @@ const skillIcons = {
   'Vite': 'vitejs/vitejs-original.svg',
   'Python': 'python/python-original.svg',
   'Socket.io': 'socketio/socketio-original.svg',
+  'REST API': 'https://cdn.simpleicons.org/openapi/85EA2D',
+  'Render': 'https://cdn.simpleicons.org/render/46E3B7',
+  'Gemini API': 'https://cdn.simpleicons.org/googlegemini/8E75B2',
+  'JWT': 'https://cdn.simpleicons.org/jsonwebtokens/000000',
+  'Cloudinary': 'https://cdn.simpleicons.org/cloudinary/3448C5',
+  '3rd Party APIs': 'https://cdn.simpleicons.org/postman/FF6C37'
 };
 
 export default function Skills({ isDark }) {
@@ -98,9 +104,9 @@ export default function Skills({ isDark }) {
                     >
                       {skillIcons[skill] && (
                         <img 
-                          src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${skillIcons[skill]}`} 
+                          src={skillIcons[skill].startsWith('http') ? skillIcons[skill] : `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${skillIcons[skill]}`} 
                           alt={skill} 
-                          className={`w-5 h-5 object-contain ${isDark && (skill === 'GitHub' || skill === 'Express.js' || skill === 'Socket.io') ? 'invert contrast-125' : ''}`}
+                          className={`w-5 h-5 object-contain ${isDark && (skill === 'GitHub' || skill === 'Express.js' || skill === 'Socket.io' || skill === 'JWT') ? 'invert contrast-125' : ''}`}
                         />
                       )}
                       <span>{skill}</span>
@@ -112,18 +118,6 @@ export default function Skills({ isDark }) {
           })}
         </div>
 
-        {/* Philosophy quote */}
-        <motion.blockquote
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className={`mt-14 border-l-4 border-accent pl-6 italic text-base max-w-2xl ${
-            isDark ? 'text-dark-muted' : 'text-light-muted'
-          }`}
-        >
-          "{portfolioData.about.philosophy}"
-        </motion.blockquote>
       </div>
     </SectionWrapper>
   );
