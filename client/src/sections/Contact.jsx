@@ -23,7 +23,8 @@ export default function Contact({ isDark }) {
     }
     setLoading(true);
     try {
-      await axios.post('/api/contact', form);
+      const apiUrl = import.meta.env.VITE_API_URL || '';
+      await axios.post(`${apiUrl}/api/contact`, form);
       setSent(true);
       toast.success('Message sent! I will get back to you.');
       setForm({ name: '', email: '', message: '' });
