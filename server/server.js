@@ -31,7 +31,6 @@ import errorHandler from './middleware/errorHandler.js';
 
 // app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
 
-
 dotenv.config();
 
 const app = express();
@@ -48,24 +47,28 @@ const corsOptions = {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.error(`CORS blocked for origin: ${origin}`);
       callback(new Error(`CORS blocked: ${origin}`));
     }
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
 };
 
-app.options('(.*)', cors(corsOptions));
 app.use(cors(corsOptions));
 app.use(express.json());
-
 app.use('/api/portfolio', portfolioRoutes);
 app.use('/api/contact', contactRoutes);
-app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
+
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 app.use(errorHandler);
 
-// ← listen first, then connect DB
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
   connectDB();
