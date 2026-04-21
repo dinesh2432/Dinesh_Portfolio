@@ -31,17 +31,19 @@ export default function Certificates({ isDark }) {
             viewport={{ once: true }}
             transition={{ delay: (i % 9) * 0.1, duration: 0.4 }}
             id={`certificate-${item.title.toLowerCase().replace(/\s+/g, '-')}`}
-            className={`group rounded-md border flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
-              isDark ? 'bg-[#18181B] border-[#27272A] hover:border-[#2563EB]' : 'bg-white border-[#E4E4E7] hover:border-[#2563EB]'
+            className={`group relative rounded-xl border flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${
+              isDark ? 'bg-zinc-900/40 backdrop-blur-xl border-white/10 hover:border-zinc-500 hover:bg-zinc-900/60' : 'bg-white border-[#E4E4E7] hover:border-zinc-400'
             }`}
           >
+            {/* Subtle glow border effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0" />
 
             {/* Certificate Image */}
-            <div className={`w-full h-52 overflow-hidden relative border-b flex items-center justify-center p-3 transition-colors ${isDark ? 'bg-[#09090B] border-[#27272A]' : 'bg-[#FAFAFA] border-[#E4E4E7]'}`}>
+            <div className={`w-full h-52 overflow-hidden relative border-b flex items-center justify-center p-3 transition-colors z-10 ${isDark ? 'bg-black/40 border-white/5' : 'bg-[#FAFAFA] border-[#E4E4E7]'}`}>
               <img 
                 src={item.image} 
                 alt={item.title} 
-                className="w-full h-full object-contain drop-shadow-sm"
+                className="w-full h-full object-contain drop-shadow-sm transition-transform duration-500 group-hover:scale-105"
               />
             </div>
 

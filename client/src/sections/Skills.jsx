@@ -38,7 +38,7 @@ export default function Skills({ isDark }) {
       <div className="max-w-6xl mx-auto">
         <div className="mb-16">
           <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight">
-            Technical Arsenal
+            Skills
           </h2>
         </div>
 
@@ -50,32 +50,35 @@ export default function Skills({ isDark }) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: catIdx * 0.1, duration: 0.4 }}
               viewport={{ once: true }}
-              className={`rounded-md p-6 border ${
-                isDark ? 'bg-[#18181B] border-[#27272A]' : 'bg-white border-[#E4E4E7]'
+              className={`relative group rounded-xl p-6 border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${
+                isDark ? 'bg-zinc-900/40 backdrop-blur-xl border-white/10 hover:border-zinc-500 hover:bg-zinc-900/60' : 'bg-white border-[#E4E4E7] hover:border-zinc-400'
               }`}
             >
-              <div className="flex items-center gap-3 mb-6 border-b pb-4">
+              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-xl" />
+              <div className="flex items-center gap-3 mb-6 border-b pb-4 border-zinc-800/50">
                 <h3
-                  className={`font-display text-base font-bold uppercase tracking-wider ${isDark ? 'text-[#FAFAFA]' : 'text-[#09090B]'}`}
+                  className={`font-display text-base font-bold uppercase tracking-wider ${isDark ? 'text-zinc-300' : 'text-[#09090B]'}`}
                 >
                   {category}
                 </h3>
               </div>
 
-              <div className="flex flex-wrap gap-2.5">
+              <div className="flex flex-wrap gap-2.5 relative z-10">
                 {items.map((skill) => (
                   <div
                     key={skill}
-                    className={`tag-pill flex items-center gap-2 group transition-colors duration-200 cursor-default`}
+                    className={`tag-pill flex items-center gap-2 group/skill transition-all duration-300 cursor-default ${
+                      isDark ? 'bg-black/50 border-white/5 hover:border-zinc-400 hover:bg-zinc-800/50 hover:shadow-[0_0_15px_rgba(255,255,255,0.05)]' : ''
+                    }`}
                   >
                     {skillIcons[skill] && (
                       <img 
                         src={skillIcons[skill].startsWith('http') ? skillIcons[skill] : `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${skillIcons[skill]}`} 
                         alt={skill} 
-                        className={`w-4 h-4 object-contain opacity-80 group-hover:opacity-100 transition-opacity ${isDark && (skill === 'GitHub' || skill === 'Express.js' || skill === 'Socket.io' || skill === 'JWT') ? 'invert contrast-125' : ''}`}
+                        className={`w-4 h-4 object-contain opacity-70 group-hover/skill:opacity-100 transition-opacity duration-300 ${isDark && (skill === 'GitHub' || skill === 'Express.js' || skill === 'Socket.io' || skill === 'JWT') ? 'invert contrast-125 opacity-90' : ''}`}
                       />
                     )}
-                    <span>{skill}</span>
+                    <span className="text-zinc-400 group-hover/skill:text-white transition-colors">{skill}</span>
                   </div>
                 ))}
               </div>

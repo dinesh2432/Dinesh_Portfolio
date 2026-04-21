@@ -19,12 +19,13 @@ export default function Education({ isDark }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className={`rounded-md border p-8 md:p-10 lg:flex gap-10 items-start transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
+          className={`group relative rounded-xl border p-8 md:p-10 lg:flex gap-10 items-start transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl overflow-hidden ${
             isDark
-              ? 'bg-[#18181B] border-[#27272A] hover:border-[#2563EB]'
-              : 'bg-white border-[#E4E4E7] hover:border-[#2563EB]'
+              ? 'bg-zinc-900/40 backdrop-blur-xl border-white/10 hover:border-zinc-500 hover:bg-zinc-900/60'
+              : 'bg-white border-[#E4E4E7] hover:border-zinc-400'
           }`}
         >
+          <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
           {/* Icon */}
           <div className="lg:shrink-0 mb-6 lg:mb-0">
             <div className={`w-16 h-16 rounded-md border flex items-center justify-center ${isDark ? 'border-[#27272A] bg-[#09090B]' : 'border-[#E4E4E7] bg-[#FAFAFA]'}`}>

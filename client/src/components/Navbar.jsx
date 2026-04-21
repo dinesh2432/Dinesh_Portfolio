@@ -38,9 +38,9 @@ export default function Navbar({ isDark, onToggleTheme }) {
         initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 border-b ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
           scrolled
-            ? isDark ? 'bg-[#09090B] border-[#27272A] py-3' : 'bg-[#FAFAFA] border-[#E4E4E7] py-3'
+            ? isDark ? 'bg-zinc-950/80 border-white/10 py-3 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.5)]' : 'bg-white/80 border-zinc-200 py-3 backdrop-blur-xl shadow-sm'
             : 'bg-transparent border-transparent py-5'
         }`}
       >

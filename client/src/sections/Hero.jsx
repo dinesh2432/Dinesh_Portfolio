@@ -54,14 +54,14 @@ export default function Hero({ isDark }) {
           
           {/* Left: Text Content */}
           <div>
-            <h1 className="font-display text-5xl md:text-7xl font-extrabold leading-none mb-4 tracking-tight">
+            <h1 className="font-display text-6xl md:text-8xl lg:text-[6rem] font-extrabold leading-[0.95] mb-6 tracking-tighter">
               <AnimatedName name={name} />
               <br />
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className={isDark ? "text-white" : "text-black"}
+                className={isDark ? "text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 to-zinc-500" : "text-black"}
               >
                 {title}
               </motion.span>
@@ -71,7 +71,7 @@ export default function Hero({ isDark }) {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.4 }}
-              className={`text-base md:text-lg leading-relaxed max-w-xl mt-6 mb-8 font-medium ${
+              className={`text-lg md:text-xl leading-relaxed max-w-xl mt-8 mb-10 font-medium ${
                 isDark ? 'text-[#A1A1AA]' : 'text-[#71717A]'
               }`}
             >
@@ -83,22 +83,22 @@ export default function Hero({ isDark }) {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
-              className="flex flex-wrap gap-4 mb-10"
+              className="flex flex-wrap gap-4 mb-12"
             >
               <button
                 onClick={scrollToProjects}
                 id="hero-view-projects"
-                className="flex items-center gap-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-7 py-3 rounded-md font-semibold text-sm transition-colors duration-200"
+                className="flex items-center gap-2 bg-white text-black hover:bg-zinc-200 px-8 py-3.5 rounded-full font-bold text-sm transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
               >
-                View Projects <ArrowDown size={14} />
+                View Projects <ArrowDown size={14} className="animate-bounce" />
               </button>
               <a
                 href={`mailto:${email}`}
                 id="hero-contact-link"
-                className={`flex items-center gap-2 border px-6 py-3 rounded-md font-semibold text-sm transition-colors duration-200 ${
+                className={`flex items-center gap-2 border px-8 py-3.5 rounded-full font-bold text-sm transition-all duration-300 ${
                   isDark
-                    ? 'border-[#27272A] text-white hover:border-[#2563EB] hover:bg-[#2563EB]/5'
-                    : 'border-[#E4E4E7] text-black hover:border-[#2563EB] hover:bg-[#2563EB]/5'
+                    ? 'border-zinc-700 text-white hover:border-zinc-500 hover:bg-zinc-800/50'
+                    : 'border-zinc-300 text-black hover:border-zinc-400 hover:bg-zinc-100'
                 }`}
               >
                 <Mail size={14} /> Get in touch
@@ -123,44 +123,47 @@ export default function Hero({ isDark }) {
                   rel="noopener noreferrer"
                   aria-label={label}
                   id={`hero-${label.toLowerCase()}-link`}
-                  className={`w-10 h-10 flex items-center justify-center rounded-md border transition-colors duration-200 hover:border-[#2563EB] hover:text-[#2563EB] ${
-                    isDark ? 'border-[#27272A] text-[#A1A1AA]' : 'border-[#E4E4E7] text-[#71717A]'
+                  className={`w-11 h-11 flex items-center justify-center rounded-full border transition-all duration-300 hover:scale-105 hover:bg-white hover:text-black hover:border-white ${
+                    isDark ? 'border-zinc-800 text-zinc-400 bg-zinc-900/50 backdrop-blur-sm' : 'border-[#E4E4E7] text-[#71717A]'
                   }`}
                 >
-                  <Icon size={16} />
+                  <Icon size={18} />
                 </a>
               ))}
               <a
                 href={`mailto:${email}`}
                 aria-label="Email"
                 id="hero-email-icon-link"
-                className={`w-10 h-10 flex items-center justify-center rounded-md border transition-colors duration-200 hover:border-[#2563EB] hover:text-[#2563EB] ${
-                    isDark ? 'border-[#27272A] text-[#A1A1AA]' : 'border-[#E4E4E7] text-[#71717A]'
+                className={`w-11 h-11 flex items-center justify-center rounded-full border transition-all duration-300 hover:scale-105 hover:bg-white hover:text-black hover:border-white ${
+                    isDark ? 'border-zinc-800 text-zinc-400 bg-zinc-900/50 backdrop-blur-sm' : 'border-[#E4E4E7] text-[#71717A]'
                 }`}
               >
-                <Mail size={16} />
+                <Mail size={18} />
               </a>
             </motion.div>
           </div>
 
-          {/* Right: Flat Terminal Block */}
+          {/* Right: Premium Frosted Terminal Block */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.5, ease: 'easeOut' }}
-            className="hidden lg:block"
+            className="hidden lg:block relative group"
           >
-            <div className={`rounded-md overflow-hidden border ${
-              isDark ? 'border-[#27272A] bg-[#18181B]' : 'border-[#E4E4E7] bg-white'
+            {/* Subtle glow behind terminal */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-zinc-500/20 to-zinc-800/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+            
+            <div className={`relative rounded-xl overflow-hidden border backdrop-blur-xl shadow-2xl ${
+              isDark ? 'border-white/10 bg-zinc-950/60 shadow-black/50' : 'border-[#E4E4E7] bg-white/60 shadow-zinc-200/50'
             }`}>
               {/* Terminal Header */}
               <div className={`flex items-center gap-2 px-4 py-3 border-b ${
-                isDark ? 'border-[#27272A] bg-[#09090B]' : 'border-[#E4E4E7] bg-[#FAFAFA]'
+                isDark ? 'border-white/10 bg-zinc-900/40' : 'border-[#E4E4E7] bg-[#FAFAFA]/40'
               }`}>
-                <div className="flex gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#EF4444]" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#EAB308]" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#10B981]" />
+                <div className="flex gap-1.5 opacity-80 hover:opacity-100 transition-opacity">
+                  <span className="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]" />
+                  <span className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DE9F34]" />
+                  <span className="w-3 h-3 rounded-full bg-[#27C93F] border border-[#1AAB29]" />
                 </div>
                 <div className="flex items-center gap-1.5 ml-2 absolute left-1/2 -translate-x-1/2">
                   <Terminal size={12} className={isDark ? "text-[#A1A1AA]" : "text-[#71717A]"} />

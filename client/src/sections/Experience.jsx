@@ -18,7 +18,7 @@ export default function Experience({ isDark }) {
         {/* Timeline */}
         <div className="relative">
           {/* Vertical line */}
-          <div className={`absolute left-5 top-0 bottom-0 w-px ${isDark ? 'bg-[#27272A]' : 'bg-[#E4E4E7]'}`} />
+          <div className={`absolute left-5 top-0 bottom-0 w-[2px] bg-gradient-to-b ${isDark ? 'from-transparent via-zinc-700 to-transparent' : 'from-transparent via-zinc-200 to-transparent'}`} />
 
           <div className="space-y-12">
             {experience.map((exp, i) => (
@@ -32,10 +32,10 @@ export default function Experience({ isDark }) {
               >
                 {/* Timeline dot */}
                 <div
-                  className={`absolute left-0 top-6 w-10 h-10 rounded-full flex items-center justify-center border-2 z-10 ${
+                  className={`absolute left-0 top-6 w-10 h-10 rounded-full flex items-center justify-center border-[3px] shadow-lg z-10 transition-transform hover:scale-110 ${
                     i === 0 
-                      ? 'border-[#2563EB] bg-[#2563EB] text-white' 
-                      : isDark ? 'border-[#27272A] bg-[#18181B] text-[#A1A1AA]' : 'border-[#E4E4E7] bg-white text-[#71717A]'
+                      ? 'border-[#2563EB] bg-[#2563EB] text-white shadow-blue-500/20' 
+                      : isDark ? 'border-zinc-800 bg-zinc-950 text-zinc-400 shadow-black/50' : 'border-zinc-200 bg-white text-zinc-500'
                   }`}
                 >
                   <Briefcase size={14} />
@@ -43,26 +43,27 @@ export default function Experience({ isDark }) {
 
                 {/* Item wrapper */}
                 <div
-                  className={`rounded-md p-7 border transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
+                  className={`group relative rounded-xl p-7 border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl overflow-hidden ${
                     isDark
-                      ? 'bg-[#18181B] border-[#27272A] hover:border-[#2563EB]'
-                      : 'bg-white border-[#E4E4E7] hover:border-[#2563EB]'
+                      ? 'bg-zinc-900/40 backdrop-blur-xl border-white/10 hover:border-zinc-500 hover:bg-zinc-900/60'
+                      : 'bg-white border-[#E4E4E7] hover:border-zinc-400'
                   }`}
                 >
-                  <div className="flex flex-col lg:flex-row gap-8">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  <div className="flex flex-col lg:flex-row gap-8 relative z-10">
                     <div className="flex-1">
-                      <div className="flex flex-wrap items-start justify-between gap-2 mb-4">
+                      <div className="flex flex-wrap items-start justify-between gap-2 mb-5">
                         <div>
-                          <h3 className="font-display text-xl font-bold tracking-tight">{exp.role}</h3>
+                          <h3 className="font-display text-2xl font-bold tracking-tight">{exp.role}</h3>
                           <p
-                            className="font-semibold text-sm mt-1 text-[#2563EB]"
+                            className="font-semibold text-sm mt-1.5 text-[#2563EB]"
                           >
                             @ {exp.company}
                           </p>
                         </div>
                         <span
-                          className={`text-xs font-mono px-3 py-1 rounded border font-medium ${
-                            isDark ? 'border-[#27272A] text-[#A1A1AA] bg-[#09090B]' : 'border-[#E4E4E7] text-[#71717A] bg-[#FAFAFA]'
+                          className={`text-xs font-mono px-3 py-1 rounded-full border font-medium uppercase tracking-widest ${
+                            isDark ? 'border-white/5 text-zinc-400 bg-black/50 shadow-inner' : 'border-[#E4E4E7] text-[#71717A] bg-[#FAFAFA]'
                           }`}
                         >
                           {exp.duration}

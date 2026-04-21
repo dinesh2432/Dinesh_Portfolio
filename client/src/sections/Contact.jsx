@@ -101,15 +101,15 @@ export default function Contact({ isDark }) {
             </div>
           </div>
 
-          {/* Right: Contact Form */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className={`rounded-md border p-6 md:p-8 ${
-              isDark ? 'bg-[#18181B] border-[#27272A]' : 'bg-white border-[#E4E4E7]'
+            className={`relative group rounded-xl border p-6 md:p-8 transition-all duration-300 hover:shadow-2xl overflow-hidden ${
+              isDark ? 'bg-zinc-900/40 backdrop-blur-xl border-white/10 hover:border-zinc-500' : 'bg-white border-[#E4E4E7] hover:border-zinc-400'
             }`}
           >
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
             {sent ? (
               <div className="flex flex-col items-center justify-center py-12 text-center gap-3">
                 <CheckCircle size={40} className="text-green-400" />
