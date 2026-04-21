@@ -2,20 +2,6 @@ import { motion } from 'framer-motion';
 import SectionWrapper from '../components/SectionWrapper';
 import { portfolioData } from '../data/portfolioData';
 
-const categoryColors = {
-  Frontend: { bg: 'rgba(124,106,255,0.12)', border: 'rgba(124,106,255,0.3)', text: '#a096ff' },
-  Backend: { bg: 'rgba(78,205,196,0.12)', border: 'rgba(78,205,196,0.3)', text: '#4ecdc4' },
-  Database: { bg: 'rgba(255,107,107,0.12)', border: 'rgba(255,107,107,0.3)', text: '#ff6b6b' },
-  'Tools & DevOps': { bg: 'rgba(247,223,30,0.1)', border: 'rgba(247,223,30,0.25)', text: '#f7df1e' },
-  'AI & APIs': { bg: 'rgba(160,150,255,0.12)', border: 'rgba(160,150,255,0.3)', text: '#c4b8ff' },
-  Languages: { bg: 'rgba(55,118,171,0.15)', border: 'rgba(55,118,171,0.35)', text: '#67aee5' },
-};
-
-const tagSizes = [
-  'text-xs px-3 py-1',
-  'text-sm px-4 py-1.5',
-];
-
 const skillIcons = {
   'HTML5': 'html5/html5-original.svg',
   'CSS3': 'css3/css3-original.svg',
@@ -50,74 +36,52 @@ export default function Skills({ isDark }) {
   return (
     <SectionWrapper id="skills" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-14">
-
-          <h2 className="font-display text-4xl md:text-5xl font-bold">
-            Skills &{' '}
-            <span className={isDark ? 'text-dark-muted' : 'text-light-muted'}>Tools</span>
+        <div className="mb-16">
+          <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight">
+            Technical Arsenal
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Object.entries(skills).map(([category, items], catIdx) => {
-            const c = categoryColors[category] || categoryColors.Frontend;
-            return (
-              <motion.div
-                key={category}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: catIdx * 0.08, duration: 0.5 }}
-                viewport={{ once: true }}
-                className={`rounded-2xl p-5 border transition-all duration-300 hover:shadow-xl ${
-                  isDark ? 'bg-dark-surface border-dark-border' : 'bg-white border-light-border'
-                }`}
-                style={{ '--cat-color': c.text }}
-              >
-                <div className="flex items-center gap-2 mb-4">
-                  <span
-                    className="w-2 h-2 rounded-full"
-                    style={{ backgroundColor: c.text }}
-                  />
-                  <h3
-                    className="font-display text-sm font-semibold uppercase tracking-wider"
-                    style={{ color: c.text }}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {Object.entries(skills).map(([category, items], catIdx) => (
+            <motion.div
+              key={category}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: catIdx * 0.1, duration: 0.4 }}
+              viewport={{ once: true }}
+              className={`rounded-md p-6 border ${
+                isDark ? 'bg-[#18181B] border-[#27272A]' : 'bg-white border-[#E4E4E7]'
+              }`}
+            >
+              <div className="flex items-center gap-3 mb-6 border-b pb-4">
+                <h3
+                  className={`font-display text-base font-bold uppercase tracking-wider ${isDark ? 'text-[#FAFAFA]' : 'text-[#09090B]'}`}
+                >
+                  {category}
+                </h3>
+              </div>
+
+              <div className="flex flex-wrap gap-2.5">
+                {items.map((skill) => (
+                  <div
+                    key={skill}
+                    className={`tag-pill flex items-center gap-2 group transition-colors duration-200 cursor-default`}
                   >
-                    {category}
-                  </h3>
-                </div>
-
-                <div className="flex flex-wrap gap-2">
-                  {items.map((skill, i) => (
-                    <motion.div
-                      key={skill}
-                      whileHover={{ y: -3, scale: 1.05 }}
-                      transition={{ type: 'spring', stiffness: 400 }}
-                      className="tag-pill font-semibold flex items-center gap-2.5"
-                      style={{
-                        background: isDark ? c.bg : '#ffffff',
-                        border: `1px solid ${c.border}`,
-                        color: isDark ? c.text : '#334155',
-                        fontSize: '0.95rem',
-                        padding: '0.6rem 1.1rem',
-                        boxShadow: isDark ? 'none' : '0 1px 2px rgba(0,0,0,0.05)'
-                      }}
-                    >
-                      {skillIcons[skill] && (
-                        <img 
-                          src={skillIcons[skill].startsWith('http') ? skillIcons[skill] : `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${skillIcons[skill]}`} 
-                          alt={skill} 
-                          className={`w-5 h-5 object-contain ${isDark && (skill === 'GitHub' || skill === 'Express.js' || skill === 'Socket.io' || skill === 'JWT') ? 'invert contrast-125' : ''}`}
-                        />
-                      )}
-                      <span>{skill}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            );
-          })}
+                    {skillIcons[skill] && (
+                      <img 
+                        src={skillIcons[skill].startsWith('http') ? skillIcons[skill] : `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${skillIcons[skill]}`} 
+                        alt={skill} 
+                        className={`w-4 h-4 object-contain opacity-80 group-hover:opacity-100 transition-opacity ${isDark && (skill === 'GitHub' || skill === 'Express.js' || skill === 'Socket.io' || skill === 'JWT') ? 'invert contrast-125' : ''}`}
+                      />
+                    )}
+                    <span>{skill}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
         </div>
-
       </div>
     </SectionWrapper>
   );

@@ -4,18 +4,29 @@ export default function ScrollProgress() {
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
+    let ticking = false;
+
     const update = () => {
       const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
       const progress = (scrollTop / (scrollHeight - clientHeight)) * 100;
       setWidth(progress);
+      ticking = false;
     };
-    window.addEventListener('scroll', update, { passive: true });
-    return () => window.removeEventListener('scroll', update);
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <div
-      id="scroll-progress"
+      id="reading-progress"
       style={{ width: `${width}%` }}
     />
   );

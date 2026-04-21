@@ -24,67 +24,62 @@ export default function Achievements({ isDark }) {
           {displayedItems.map((item, i) => (
             <motion.div
               key={item.title}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: (i % 9) * 0.08, type: 'spring', stiffness: 200 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              id={`achievement-${item.title.toLowerCase().replace(/\s+/g, '-')}`}
-              className={`group relative rounded-2xl border flex flex-col cursor-default overflow-hidden transition-all duration-300 ${
-                isDark ? 'bg-dark-surface border-dark-border' : 'bg-white border-light-border'
-              }`}
-            >
-              {/* Decorative glow */}
-              <div
-                className="absolute -right-4 -top-4 w-20 h-20 rounded-full opacity-0 group-hover:opacity-30 transition-opacity blur-2xl pointer-events-none z-10"
-                style={{ background: item.color }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: (i % 9) * 0.1, duration: 0.4 }}
+            id={`achievement-${item.title.toLowerCase().replace(/\s+/g, '-')}`}
+            className={`group rounded-md border flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
+              isDark ? 'bg-[#18181B] border-[#27272A] hover:border-[#2563EB]' : 'bg-white border-[#E4E4E7] hover:border-[#2563EB]'
+            }`}
+          >
+
+            {/* Certificate Image */}
+            <div className={`w-full h-52 overflow-hidden relative border-b flex items-center justify-center p-3 transition-colors ${isDark ? 'bg-[#09090B] border-[#27272A]' : 'bg-[#FAFAFA] border-[#E4E4E7]'}`}>
+              <img 
+                src={item.image} 
+                alt={item.title} 
+                className="w-full h-full object-contain drop-shadow-sm"
               />
+            </div>
 
-              {/* Certificate Image */}
-              <div className={`w-full h-52 overflow-hidden relative border-b flex items-center justify-center p-3 transition-colors ${isDark ? 'bg-[#0f0f13]' : 'bg-gray-50'}`} style={{ borderColor: isDark ? '#1e1e2e' : '#e5e3df' }}>
-                <img 
-                  src={item.image} 
-                  alt={item.title} 
-                  className="w-full h-full object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-
-              <div className="p-6 flex-1 flex flex-col justify-between relative z-20">
-                <div>
-                  <h3 className="font-display font-bold text-xl leading-tight mb-3" style={{ color: isDark ? '#fff' : '#000' }}>
-                    {item.title}
-                  </h3>
-                  <p className={`text-sm mb-5 leading-relaxed ${isDark ? 'text-dark-muted' : 'text-light-muted'}`}>
-                    {item.description}
-                  </p>
-                  
-                  <p className="text-sm font-semibold mb-1" style={{ color: item.color || '#7c6aff' }}>
-                    Issued by: {item.issuer}
-                  </p>
-                  {item.date && (
-                    <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-                      Date: {item.date}
-                    </p>
-                  )}
-                </div>
+            <div className="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 className={`font-display font-bold text-lg leading-tight mb-3 tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>
+                  {item.title}
+                </h3>
+                <p className={`text-sm mb-5 leading-relaxed ${isDark ? 'text-[#A1A1AA]' : 'text-[#71717A]'}`}>
+                  {item.description}
+                </p>
                 
-                <div className="flex items-center justify-between mt-5 pt-4 border-t" style={{ borderColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
-                  <div className="flex items-center gap-1.5">
-                    <Award size={14} className={isDark ? 'text-dark-muted' : 'text-light-muted'} />
-                    <span className={`text-xs font-medium ${isDark ? 'text-dark-muted' : 'text-light-muted'}`}>
-                      Achieved
-                    </span>
-                  </div>
-                  <button 
-                    onClick={() => setSelectedImage(item.image)}
-                    className="text-xs font-bold px-3.5 py-1.5 rounded-lg bg-accent/10 text-accent hover:bg-accent/20 transition-colors shadow-sm"
-                  >
-                    View
-                  </button>
-                </div>
+                <p className="text-xs font-semibold mb-1 text-[#2563EB]">
+                  Issued by: {item.issuer}
+                </p>
+                {item.date && (
+                  <p className={`text-xs ${isDark ? 'text-[#71717A]' : 'text-[#A1A1AA]'}`}>
+                    Date: {item.date}
+                  </p>
+                )}
               </div>
-            </motion.div>
+              
+              <div className={`flex items-center justify-between mt-5 pt-4 border-t ${isDark ? 'border-[#27272A]' : 'border-[#E4E4E7]'}`}>
+                <div className="flex items-center gap-1.5">
+                  <Award size={14} className={isDark ? 'text-[#A1A1AA]' : 'text-[#71717A]'} />
+                  <span className={`text-xs font-medium ${isDark ? 'text-[#A1A1AA]' : 'text-[#71717A]'}`}>
+                    Achieved
+                  </span>
+                </div>
+                <button 
+                  onClick={() => setSelectedImage(item.image)}
+                  className={`text-xs font-bold px-3 py-1.5 rounded transition-colors ${
+                    isDark ? 'bg-[#09090B] text-[#FAFAFA] hover:bg-[#2563EB] hover:text-white' : 'bg-[#FAFAFA] text-[#09090B] hover:bg-[#2563EB] hover:text-white'
+                  }`}
+                >
+                  View
+                </button>
+              </div>
+            </div>
+          </motion.div>
           ))}
         </div>
 
@@ -92,7 +87,9 @@ export default function Achievements({ isDark }) {
           <div className="flex justify-center mt-12">
             <button
               onClick={() => setShowAll(!showAll)}
-              className="px-6 py-2.5 rounded-xl border border-accent text-accent font-medium text-sm transition-all hover:bg-accent/10"
+              className={`px-6 py-2.5 rounded border font-medium text-sm transition-colors ${
+                isDark ? 'border-[#27272A] hover:border-[#2563EB] text-[#FAFAFA]' : 'border-[#E4E4E7] hover:border-[#2563EB] text-[#09090B]'
+              }`}
             >
               {showAll ? 'Show Less' : 'See all achievements'}
             </button>

@@ -34,10 +34,10 @@ export default function Contact({ isDark }) {
     }
   };
 
-  const inputBase = `w-full px-4 py-3 rounded-xl border text-sm outline-none transition-all duration-200 font-body ${
+  const inputBase = `w-full px-4 py-3 rounded-md border text-sm outline-none transition-all duration-200 font-body ${
     isDark
-      ? 'bg-dark-border border-dark-border text-dark-text placeholder-dark-muted focus:border-accent'
-      : 'bg-gray-50 border-light-border text-light-text placeholder-light-muted focus:border-accent'
+      ? 'bg-[#09090B] border-[#27272A] text-[#FAFAFA] placeholder:text-[#27272A] focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
+      : 'bg-[#FAFAFA] border-[#E4E4E7] text-[#09090B] placeholder:text-[#E4E4E7] focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
   }`;
 
   return (
@@ -51,7 +51,7 @@ export default function Contact({ isDark }) {
         <div className="grid lg:grid-cols-[1fr_480px] gap-10 lg:gap-16 items-start">
           {/* Left: Text + Socials */}
           <div>
-            <p className={`text-base leading-relaxed mb-8 max-w-md ${isDark ? 'text-dark-muted' : 'text-light-muted'}`}>
+            <p className={`text-base flex-1 leading-relaxed mb-8 max-w-md ${isDark ? 'text-[#A1A1AA]' : 'text-[#71717A]'}`}>
               Whether it's a project idea, an opportunity, or just a conversation about tech — my inbox is open.
               I try to reply within a day or two.
             </p>
@@ -84,16 +84,18 @@ export default function Contact({ isDark }) {
                   id={id}
                   whileHover={{ x: 6 }}
                   transition={{ type: 'spring', stiffness: 400 }}
-                  className={`flex items-center gap-4 group ${isDark ? 'text-dark-muted hover:text-dark-text' : 'text-light-muted hover:text-light-text'} transition-colors`}
+                  className={`flex items-center gap-4 group transition-colors ${
+                    isDark ? 'text-[#A1A1AA] hover:text-[#FAFAFA]' : 'text-[#71717A] hover:text-[#09090B]'
+                  }`}
                 >
                   <div
-                    className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-all group-hover:border-accent group-hover:text-accent ${
-                      isDark ? 'border-dark-border' : 'border-light-border'
+                    className={`w-10 h-10 rounded-md border flex items-center justify-center transition-all duration-200 group-hover:border-[#2563EB] group-hover:text-[#2563EB] ${
+                      isDark ? 'border-[#27272A] bg-[#18181B]' : 'border-[#E4E4E7] bg-white'
                     }`}
                   >
                     <Icon size={15} />
                   </div>
-                  <span className="text-sm font-medium">{label}</span>
+                  <span className="text-sm font-semibold tracking-wide">{label}</span>
                 </motion.a>
               ))}
             </div>
@@ -101,11 +103,11 @@ export default function Contact({ isDark }) {
 
           {/* Right: Contact Form */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className={`rounded-2xl border p-6 md:p-8 ${
-              isDark ? 'bg-dark-surface border-dark-border' : 'bg-white border-light-border'
+            className={`rounded-md border p-6 md:p-8 ${
+              isDark ? 'bg-[#18181B] border-[#27272A]' : 'bg-white border-[#E4E4E7]'
             }`}
           >
             {sent ? (
@@ -173,9 +175,9 @@ export default function Contact({ isDark }) {
                   type="submit"
                   id="contact-submit"
                   disabled={loading}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="w-full flex items-center justify-center gap-2 bg-accent hover:bg-accent-dark text-white py-3 rounded-xl font-semibold text-sm transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full flex items-center justify-center gap-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white py-3 rounded-md font-semibold text-sm transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {loading ? (
                     <>

@@ -10,51 +10,52 @@ export default function Education({ isDark }) {
   return (
     <SectionWrapper id="education" className="py-24 px-6">
       <div className="max-w-4xl mx-auto">
-        <div className="mb-14">
-
-          <h2 className="font-display text-4xl md:text-5xl font-bold">Education</h2>
+        <div className="mb-16">
+          <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight">Education</h2>
         </div>
 
         <motion.div
-          whileHover={{ y: -4 }}
-          transition={{ type: 'spring', stiffness: 300 }}
-          className={`rounded-2xl border p-8 md:p-10 lg:flex gap-10 items-start transition-all duration-300 ${
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className={`rounded-md border p-8 md:p-10 lg:flex gap-10 items-start transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
             isDark
-              ? 'bg-dark-surface border-dark-border hover:border-accent/30'
-              : 'bg-white border-light-border hover:border-accent/30'
+              ? 'bg-[#18181B] border-[#27272A] hover:border-[#2563EB]'
+              : 'bg-white border-[#E4E4E7] hover:border-[#2563EB]'
           }`}
         >
           {/* Icon */}
           <div className="lg:shrink-0 mb-6 lg:mb-0">
-            <div className="w-16 h-16 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center">
-              <GraduationCap size={28} className="text-accent" />
+            <div className={`w-16 h-16 rounded-md border flex items-center justify-center ${isDark ? 'border-[#27272A] bg-[#09090B]' : 'border-[#E4E4E7] bg-[#FAFAFA]'}`}>
+              <GraduationCap size={28} className="text-[#2563EB]" />
             </div>
           </div>
 
           {/* Content */}
           <div className="flex-1">
-            <h3 className="font-display text-2xl font-bold mb-2">{edu.degree}</h3>
-            <p className="font-semibold text-accent mb-4">{edu.institution}</p>
+            <h3 className="font-display text-2xl font-bold mb-2 tracking-tight">{edu.degree}</h3>
+            <p className="font-semibold text-[#2563EB] mb-4">{edu.institution}</p>
 
             <div className="flex flex-wrap gap-4 mb-6">
               <div className="flex items-center gap-2">
-                <MapPin size={14} className={isDark ? 'text-dark-muted' : 'text-light-muted'} />
-                <span className={`text-sm ${isDark ? 'text-dark-muted' : 'text-light-muted'}`}>{edu.location}</span>
+                <MapPin size={14} className={isDark ? 'text-[#A1A1AA]' : 'text-[#71717A]'} />
+                <span className={`text-sm ${isDark ? 'text-[#A1A1AA]' : 'text-[#71717A]'}`}>{edu.location}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Calendar size={14} className={isDark ? 'text-dark-muted' : 'text-light-muted'} />
-                <span className={`text-sm ${isDark ? 'text-dark-muted' : 'text-light-muted'}`}>{edu.duration}</span>
+                <Calendar size={14} className={isDark ? 'text-[#A1A1AA]' : 'text-[#71717A]'} />
+                <span className={`text-sm ${isDark ? 'text-[#A1A1AA]' : 'text-[#71717A]'}`}>{edu.duration}</span>
               </div>
             </div>
 
             <div>
-              <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-lg border" style={{ borderColor: isDark ? '#1e1e2e' : '#e5e3df', backgroundColor: isDark ? '#111118' : '#f9f9f9' }}>
-                <BookOpen size={14} className="text-accent" />
-                <span className={`text-sm font-semibold ${isDark ? 'text-dark-text' : 'text-light-text'}`}>
-                  CGPA: <span className="text-accent">{edu.cgpa}</span>
+              <div className={`inline-flex items-center gap-2 mb-4 px-4 py-2 rounded border ${isDark ? 'border-[#27272A] bg-[#09090B]' : 'border-[#E4E4E7] bg-[#FAFAFA]'}`}>
+                <BookOpen size={14} className="text-[#2563EB]" />
+                <span className={`text-sm font-semibold ${isDark ? 'text-[#FAFAFA]' : 'text-[#09090B]'}`}>
+                  CGPA / Grade: <span className="text-[#2563EB] ml-1">{edu.cgpa}</span>
                 </span>
               </div>
-              <p className={`text-sm leading-relaxed ${isDark ? 'text-dark-muted' : 'text-light-muted'}`}>
+              <p className={`text-sm leading-relaxed ${isDark ? 'text-[#A1A1AA]' : 'text-[#71717A]'}`}>
                 {edu.description}
               </p>
             </div>

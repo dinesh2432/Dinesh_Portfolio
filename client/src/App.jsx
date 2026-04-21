@@ -31,7 +31,7 @@ export default function App() {
   };
 
   return (
-    <div className={`relative min-h-screen noise-bg ${isDark ? '' : 'light'}`}>
+    <div className={`relative min-h-screen ${isDark ? '' : 'light'}`}>
       <ScrollProgress />
       <Navbar isDark={isDark} onToggleTheme={toggle} />
 

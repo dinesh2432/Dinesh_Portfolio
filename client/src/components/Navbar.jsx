@@ -38,10 +38,10 @@ export default function Navbar({ isDark, onToggleTheme }) {
         initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 border-b ${
           scrolled
-            ? 'glass py-3'
-            : 'bg-transparent py-5'
+            ? isDark ? 'bg-[#09090B] border-[#27272A] py-3' : 'bg-[#FAFAFA] border-[#E4E4E7] py-3'
+            : 'bg-transparent border-transparent py-5'
         }`}
       >
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
@@ -49,10 +49,12 @@ export default function Navbar({ isDark, onToggleTheme }) {
           <a
             href="#about"
             onClick={(e) => { e.preventDefault(); handleNav('#about'); }}
-            className="font-display font-bold text-xl tracking-tight"
+            className={`font-display font-bold text-xl tracking-tight transition-colors ${
+              isDark ? 'text-white hover:text-accent-light' : 'text-black hover:text-accent'
+            }`}
             id="nav-logo"
           >
-            <span className="text-gradient">DINESH K</span>
+            DINESH K
           </a>
 
           {/* Desktop Links */}
@@ -105,7 +107,9 @@ export default function Navbar({ isDark, onToggleTheme }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className={`fixed top-16 left-4 right-4 z-40 rounded-2xl glass p-4 md:hidden`}
+            className={`fixed top-16 left-4 right-4 z-40 rounded-xl border p-4 md:hidden shadow-lg ${
+              isDark ? 'bg-[#18181B] border-[#27272A]' : 'bg-[#FFFFFF] border-[#E4E4E7]'
+            }`}
           >
             <ul className="flex flex-col gap-1">
               {navLinks.map((link) => (
