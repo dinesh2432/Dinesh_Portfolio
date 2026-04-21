@@ -20,10 +20,33 @@ export default function Navbar({ isDark, onToggleTheme }) {
   const [active, setActive] = useState('');
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 30);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 30);
+      
+      // Update active section based on scroll position
+      let currentSectionId = '';
+      navLinks.forEach((link) => {
+        const section = document.querySelector(link.href);
+        if (section) {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          if (window.scrollY >= sectionTop - 200) {
+            currentSectionId = link.href;
+          }
+        }
+      });
+      
+      if (currentSectionId && currentSectionId !== active) {
+        setActive(currentSectionId);
+      }
+    };
+    
     window.addEventListener('scroll', onScroll, { passive: true });
+    // Run once on load to set initial state
+    onScroll();
+    
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [active]);
 
   const handleNav = (href) => {
     setActive(href);
@@ -74,9 +97,9 @@ export default function Navbar({ isDark, onToggleTheme }) {
                 >
                   {link.label}
                   {active === link.href && (
-                    <motion.span
+                    <motion.div
                       layoutId="nav-indicator"
-                      className="absolute inset-0 bg-accent/10 rounded-lg"
+                      className="absolute bottom-0 left-3 right-3 h-[2px] bg-[#2563EB] rounded-t-md"
                     />
                   )}
                 </button>

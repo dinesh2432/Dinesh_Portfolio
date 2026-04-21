@@ -40,7 +40,7 @@ export const portfolioData = {
   linkedin: 'https://www.linkedin.com/in/dineshk0906/',
   github: 'https://github.com/dinesh2432',
   about: {
-    bio: "I'm a passionate Full Stack Developer focused on building robust, scalable, and responsive web applications. Currently pursuing my B.Tech in Information Technology at St. Joseph's Institute of Technology, Chennai. I thrive on translating complex problems into clean, efficient, and user-centric solutions. Experienced deeply in the MERN stack (MongoDB, Express, React, Node.js), and continuously expanding my expertise in cloud deployments and modern web architectures.",
+    bio: "I'm a passionate Full Stack Developer focused on building robust, scalable, and responsive web applications. Currently pursuing my B.Tech in Information Technology at St. Joseph's Institute of Technology, Chennai. Experienced deeply in the MERN stack, and continuously expanding my expertise in cloud deployments and modern web architectures.",
     philosophy: "Clean code is a nice goal, but working code ships. I lean toward simple, readable solutions — fewer abstractions, more clarity.",
     funFacts: [
       'Built a working chat app before finishing my 3rd semester',

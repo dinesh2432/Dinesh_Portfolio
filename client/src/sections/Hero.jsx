@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, ArrowDown, Terminal } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../components/SocialIcons';
@@ -40,6 +41,48 @@ function AnimatedName({ name }) {
   );
 }
 
+const ROLES = ["Full Stack Developer", "Programmer", "Web Developer"];
+
+function TypewriterEffect({ words, isDark }) {
+  const [index, setIndex] = useState(0);
+  const [subIndex, setSubIndex] = useState(0);
+  const [reverse, setReverse] = useState(false);
+
+  useEffect(() => {
+    if (subIndex === words[index].length + 1 && !reverse) {
+      const timeout = setTimeout(() => setReverse(true), 2000);
+      return () => clearTimeout(timeout);
+    }
+
+    if (subIndex === 0 && reverse) {
+      setReverse(false);
+      setIndex((prev) => (prev + 1) % words.length);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setSubIndex((prev) => prev + (reverse ? -1 : 1));
+    }, reverse ? 60 : 180);
+
+    return () => clearTimeout(timeout);
+  }, [subIndex, index, reverse, words]);
+
+  const currentWord = words[index].substring(0, subIndex);
+
+  return (
+    <span className="inline-flex items-center">
+      <span className={isDark ? "text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-blue-400" : "text-[#2563EB]"}>
+        {currentWord}
+      </span>
+      <motion.span
+        animate={{ opacity: [1, 0] }}
+        transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
+        className="inline-block w-[3px] h-[0.9em] ml-[2px] bg-[#2563EB] rounded-full translate-y-[2px]"
+      />
+    </span>
+  );
+}
+
 export default function Hero({ isDark }) {
   const { name, title, email, linkedin, github, about } = portfolioData;
 
@@ -48,30 +91,23 @@ export default function Hero({ isDark }) {
   };
 
   return (
-    <section id="about" className="min-h-screen flex items-center pt-24 pb-12 px-6">
+    <section id="about" className="min-h-screen flex items-center pt-28 pb-12 px-6">
       <div className="max-w-6xl mx-auto w-full">
         <div className="grid lg:grid-cols-[1fr_420px] gap-12 lg:gap-16 items-center">
           
           {/* Left: Text Content */}
           <div>
-            <h1 className="font-display text-6xl md:text-8xl lg:text-[6rem] font-extrabold leading-[0.95] mb-6 tracking-tighter">
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] mb-4 tracking-tight">
               <AnimatedName name={name} />
               <br />
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                className={isDark ? "text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 to-zinc-500" : "text-black"}
-              >
-                {title}
-              </motion.span>
+              <TypewriterEffect words={ROLES} isDark={isDark} />
             </h1>
 
             <motion.p
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.4 }}
-              className={`text-lg md:text-xl leading-relaxed max-w-xl mt-8 mb-10 font-medium ${
+              className={`text-base md:text-lg leading-relaxed max-w-lg mt-6 mb-8 font-medium ${
                 isDark ? 'text-[#A1A1AA]' : 'text-[#71717A]'
               }`}
             >
