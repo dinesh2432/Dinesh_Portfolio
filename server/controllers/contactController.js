@@ -16,16 +16,22 @@ export const submitContact = async (req, res, next) => {
     // Send email to yourself using Nodemailer
     if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
       try {
+        const port = parseInt(process.env.EMAIL_PORT) || 465;
         const transporter = nodemailer.createTransport({
-          service: 'gmail',
+          host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+          port: port,
+          secure: port === 465,
           auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS,
           },
+          connectionTimeout: 10000,
+          greetingTimeout: 10000,
+          socketTimeout: 15000,
         });
 
         const mailOptions = {
-          from: process.env.EMAIL_USER,
+          from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
           to: process.env.EMAIL_USER, // Send the email to yourself
           replyTo: email, // If you click 'reply' in your email client, it goes to the user
           subject: `Portfolio Contact: Message from ${name}`,

@@ -23,7 +23,7 @@ export default function Contact({ isDark }) {
     }
     setLoading(true);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || '';
+      const apiUrl = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:5000' : 'https://dinesh-portfolio-po9b.onrender.com');
       await axios.post(`${apiUrl}/api/contact`, form);
       setSent(true);
       toast.success('Message sent! I will get back to you.');

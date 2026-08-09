@@ -22,7 +22,7 @@ const skillIcons = {
   'Vite': 'vitejs/vitejs-original.svg',
   'Python': 'python/python-original.svg',
   'Socket.io': 'socketio/socketio-original.svg',
-  'REST API': 'https://cdn.simpleicons.org/openapi/85EA2D',
+  'REST API': 'https://cdn.simpleicons.org/openapiinitiative/85EA2D',
   'Render': 'https://cdn.simpleicons.org/render/46E3B7',
   'Gemini API': 'https://cdn.simpleicons.org/googlegemini/8E75B2',
   'JWT': 'https://cdn.simpleicons.org/jsonwebtokens/000000',
@@ -75,6 +75,7 @@ export default function Skills({ isDark }) {
                       <img 
                         src={skillIcons[skill].startsWith('http') ? skillIcons[skill] : `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${skillIcons[skill]}`} 
                         alt={skill} 
+                        onError={(e) => { e.currentTarget.style.display = 'none'; }}
                         className={`w-4 h-4 object-contain opacity-70 group-hover/skill:opacity-100 transition-opacity duration-300 ${isDark && (skill === 'GitHub' || skill === 'Express.js' || skill === 'Socket.io' || skill === 'JWT') ? 'invert contrast-125 opacity-90' : ''}`}
                       />
                     )}

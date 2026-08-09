@@ -15,17 +15,30 @@ connectDB();
 
 const allowedOrigins = [
   'http://localhost:5173',
+  'http://localhost:3000',
   'https://dinesh-portfolio-web.vercel.app'
 ];
 if (process.env.CLIENT_URL) {
   allowedOrigins.push(process.env.CLIENT_URL);
 }
 
-// Simplified, native CORS handling (most reliable for Express behind Render proxies)
 app.use(cors({
-  origin: allowedOrigins,
-  credentials: true
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    const normalizedOrigin = origin.replace(/\/$/, '');
+    const isAllowed = allowedOrigins.some(o => o.replace(/\/$/, '') === normalizedOrigin) ||
+      /\.vercel\.app$/.test(normalizedOrigin);
+    if (isAllowed) {
+      return callback(null, true);
+    }
+    return callback(null, true);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
+
+app.options('*', cors());
 
 app.use(express.json());
 
