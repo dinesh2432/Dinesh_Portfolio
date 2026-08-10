@@ -1,5 +1,5 @@
 import ContactMessage from '../models/ContactMessage.js';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 export const submitContact = async (req, res, next) => {
   try {
@@ -7,55 +7,58 @@ export const submitContact = async (req, res, next) => {
     if (!name || !email || !message) {
       return res.status(400).json({ success: false, message: 'All fields are required.' });
     }
-    
-    // Save to the database as a backup
+
+    // Save to MongoDB as a backup regardless of email outcome
     const newMsg = await ContactMessage.create({ name, email, message });
 
     let emailStatus = 'Email not configured';
-    
-    // Send email to yourself using Nodemailer
-    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-      try {
-        const port = parseInt(process.env.EMAIL_PORT) || 465;
-        const transporter = nodemailer.createTransport({
-          host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-          port: port,
-          secure: port === 465,
-          auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
-          },
-          connectionTimeout: 10000,
-          greetingTimeout: 10000,
-          socketTimeout: 15000,
-        });
 
-        const mailOptions = {
-          from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
-          to: process.env.EMAIL_USER, // Send the email to yourself
-          replyTo: email, // If you click 'reply' in your email client, it goes to the user
+    // Send email via Resend HTTP API (works on Render — no SMTP ports needed)
+    if (process.env.RESEND_API_KEY) {
+      try {
+        const resend = new Resend(process.env.RESEND_API_KEY);
+
+        const { error } = await resend.emails.send({
+          from: 'Portfolio Contact <onboarding@resend.dev>',
+          to: [process.env.EMAIL_USER || 'ddk113311@gmail.com'],
+          reply_to: email,
           subject: `Portfolio Contact: Message from ${name}`,
           text: `You received a new message from your portfolio contact form.\n\nFrom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
-          html: `<div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-                    <h2 style="color: #7c6aff;">New Portfolio Message</h2>
-                    <p><strong>Name:</strong> ${name}</p>
-                    <p><strong>Email:</strong> ${email}</p>
-                    <p><strong>Message:</strong></p>
-                    <blockquote style="border-left: 4px solid #7c6aff; padding-left: 10px; color: #555;">
-                      ${message.replace(/\n/g, '<br/>')}
-                    </blockquote>
-                 </div>`,
-        };
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #eee; border-radius: 12px;">
+              <h2 style="color: #7c6aff; margin-top: 0;">📬 New Portfolio Message</h2>
+              <table style="width: 100%; border-collapse: collapse;">
+                <tr><td style="padding: 8px 0; font-weight: bold; color: #555; width: 80px;">Name:</td><td style="padding: 8px 0;">${name}</td></tr>
+                <tr><td style="padding: 8px 0; font-weight: bold; color: #555;">Email:</td><td style="padding: 8px 0;"><a href="mailto:${email}" style="color: #7c6aff;">${email}</a></td></tr>
+              </table>
+              <hr style="border: none; border-top: 1px solid #eee; margin: 16px 0;"/>
+              <p style="font-weight: bold; color: #555; margin-bottom: 8px;">Message:</p>
+              <blockquote style="border-left: 4px solid #7c6aff; margin: 0; padding: 12px 16px; background: #f9f9ff; border-radius: 0 8px 8px 0; color: #333;">
+                ${message.replace(/\n/g, '<br/>')}
+              </blockquote>
+              <p style="margin-top: 20px; font-size: 12px; color: #aaa;">Sent from your portfolio contact form. Reply to this email to respond directly to ${name}.</p>
+            </div>
+          `,
+        });
 
-        await transporter.sendMail(mailOptions);
-        emailStatus = 'Email dispatched successfully';
+        if (error) {
+          console.error('Resend Error:', error);
+          emailStatus = 'Email failed to dispatch';
+        } else {
+          emailStatus = 'Email dispatched successfully';
+        }
       } catch (mailError) {
-        console.error('Nodemailer Error:', mailError);
+        console.error('Resend Exception:', mailError);
         emailStatus = 'Email failed to dispatch';
       }
     }
 
-    res.status(201).json({ success: true, message: 'Message received! I will get back to you soon.', data: newMsg, emailStatus });
+    res.status(201).json({
+      success: true,
+      message: 'Message received! I will get back to you soon.',
+      data: newMsg,
+      emailStatus,
+    });
   } catch (err) {
     next(err);
   }
